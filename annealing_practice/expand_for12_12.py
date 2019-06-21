@@ -5,9 +5,9 @@ def make_constraint():
     func = '0'
     #横の制約
     for i in range(12):
-        func += ' + (1-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{})**2'.format('q'+str(4*i), 'q'+str(4*i+1), 'q'+str(4*i+2), 'q'+str(4*i+3),\
-                                                                       'q'+str(4*i+4), 'q'+str(4*i+5), 'q'+str(4*i+6), 'q'+str(4*i+7),\
-                                                                       'q'+str(4*i+8), 'q'+str(4*i+9), 'q'+str(4*i+10), 'q'+str(4*i+11))
+        func += ' + (1-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{})**2'.format('q'+str(12*i), 'q'+str(12*i+1), 'q'+str(12*i+2), 'q'+str(12*i+3),\
+                                                                       'q'+str(12*i+4), 'q'+str(12*i+5), 'q'+str(12*i+6), 'q'+str(12*i+7),\
+                                                                       'q'+str(12*i+8), 'q'+str(12*i+9), 'q'+str(12*i+10), 'q'+str(12*i+11))
     #print(func)
     #縦の制約
     for i in range(12):
@@ -48,28 +48,31 @@ def calc(x):
     #print('check2',x, y, element[0])
     return x, y, element[0]
 
+def make_J1():
+    for n in range(144):
+        exec("q%d = sp.symbols('%s')" % (n, 'q'+str(n)))
+        #print("q%d = sp.symbols('%s')" % (n, 'q'+str(n)))
 
-for n in range(144):
-    exec("q%d = sp.symbols('%s')" % (n, 'q'+str(n)))
-    #print("q%d = sp.symbols('%s')" % (n, 'q'+str(n)))
+    func = make_constraint()
 
-func = make_constraint()
+    ex_func = sp.expand(func)
+    #print(ex_func)
 
-ex_func = sp.expand(func)
-print(ex_func)
+    ex_func_list = ['+'] + str(ex_func).split(' ')
+    #print(ex_func_list)
 
-ex_func_list = ['+'] + str(ex_func).split(' ')
-#print(ex_func_list)
+    J1 = np.zeros((144, 144))
 
-J1 = np.zeros((144, 144))
+    for i, x in enumerate(ex_func_list):
+        if x != '+' and x != '-' and x != '24':
+            a, b, item = calc(x)
+            if ex_func_list[int(i) - 1] == '-':
+                #print('-')
+                J1[int(a), int(b)] += -1 * int(item)
+            else:
+                J1[int(a), int(b)] += int(item)
 
-for i, x in enumerate(ex_func_list):
-    if x != '+' and x != '-' and x != '24':
-        a, b, item = calc(x)
-        if ex_func_list[int(i) - 1] == '-':
-            #print('-')
-            J1[int(a), int(b)] += -1 * int(item)
-        else:
-            J1[int(a), int(b)] += int(item)
-
-print(J1)
+    np.set_printoptions(edgeitems=8)
+    #print(J1)
+    #print(np.get_printoptions())
+    return J1
