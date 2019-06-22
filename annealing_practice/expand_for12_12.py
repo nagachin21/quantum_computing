@@ -76,3 +76,20 @@ def make_J1():
     #print(J1)
     #print(np.get_printoptions())
     return J1
+
+def return_J2_element(i, j):
+    if i >= j:
+        result = 0
+    else:
+        result = 1
+    return result
+
+def make_J2(num):
+
+    J2 = np.zeros((num**2, num**2))
+
+    for i in range(num**2):
+        for j in range(num**2):
+            J2[i, j] = return_J2_element(i, j)
+
+    return J2
