@@ -1,10 +1,11 @@
 import sys
 sys.path.append("./annealing_practice")
 import numpy as np
+import random
 from numerology import *
 
 def make_dis_matrix():
-    mat = [
+    mat = np.array([
     [0,  1,0.5,  3,  2,0.5,  0,  0,  0,  0,  0,  0],
     [0,  0,  2,  1,  3,  1,  0,  0,  0,  0,  0,  0],
     [0,  0,  0,0.5,  1,  3,  0,  0,  0,  0,  0,  0],
@@ -17,7 +18,7 @@ def make_dis_matrix():
     [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  3,0.5],
     [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  2],
     [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0]
-    ]
+    ])
 
     return mat
 
@@ -29,7 +30,10 @@ def make_rel_matrix():
     person.append([1980,12,1])
 
     for i in range(8):
-        person.append(str(1900 + random.randint(0,99)), str(random.randint(1,12)), str(random.randint(1,30)) )
+        person.append([str(1900 + random.randint(0,99)), str(random.randint(1,12)), str(random.randint(1,30))] )
+        print(person[i])
+
+    print(len(person))
 
     mat = np.zeros((12,12))
     for i in range(12):
@@ -68,6 +72,8 @@ def make_J2():
     J2 = np.zeros((144,144))
     relation = make_rel_matrix()
     distance = make_dis_matrix()
+    #print(relation)
+    #print(distance)
 
     for i in range(144):
         for j in range(144):

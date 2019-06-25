@@ -29,6 +29,7 @@ def make_J2():
     return J2
 
 a = wq.opt()
+a.dwavetoken = "DEV-1bc37e85b416b94b19afdd046f774059d756299c"
 
 J1 = np.array([
 [-2,2,2,2,2,0,0,0,2,0,0,0,2,0,0,0],
@@ -71,7 +72,8 @@ J2 = np.array([
 B = -0.2
 
 a.qubo = J1 + B * J2
-result = a.sa()
+#result = a.sa()
+result = a.dw()
 print(result)
 #test_J2 = make_J2()
 #print(test_J2)

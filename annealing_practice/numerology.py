@@ -88,6 +88,7 @@ def affinity(x,y):
 
 def digit(i):
     lst = []
+    i = int(i)
     while i > 0:
         lst.append(i%10)
         i //= 10
