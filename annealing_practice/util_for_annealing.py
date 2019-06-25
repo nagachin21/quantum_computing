@@ -22,16 +22,23 @@ def make_dis_matrix():
     return mat
 
 def make_rel_matrix():
-    A = [1993,9,22]
-    B = [1995,4,7]
-    C = [1985,1,2]
-    D = [1980,12,1]
+    person = []
+    person.append([1993,9,22])
+    person.append([1995,4,7])
+    person.append([1985,1,2])
+    person.append([1980,12,1])
 
-    A_num = divine(*A)
-    B_num = divine(*B)
+    for i in range(8):
+        person.append(str(1900 + random.randint(0,99)), str(random.randint(1,12)), str(random.randint(1,30)) )
 
-    #print("A ", A_num)
-
+    mat = np.zeros((12,12))
+    for i in range(12):
+        for j in range(12):
+            if i < j:
+                x = divine(*person[i])
+                y = divine(*person[j])
+                mat[i][j] = affinity(x,y)
+    '''
     mat = [
     [0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
     [0,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
@@ -46,6 +53,7 @@ def make_rel_matrix():
     [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1],
     [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0]
     ]
+    '''
 
     return mat
 

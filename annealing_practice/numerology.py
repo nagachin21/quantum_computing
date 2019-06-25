@@ -1,4 +1,3 @@
-
 def divine(birthy,birthm,birthd):
     list = []
     year  = digit(birthy)
