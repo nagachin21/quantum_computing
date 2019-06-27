@@ -14,15 +14,15 @@ J2 = make_J2()
 #print(J1)
 #print(J2)
 #print(J2.shape)
-print(J1 + b*J2)
-print(J1 - b*J2)
+#print(J1 + b*J2)
+#print(J1 - b*J2)
 
 a.qubo = J1 + b*J2
 answer = []
 
 for i in range(1):
-    #result = a.sa()
-    result = a.dw()
+    result = a.sa()
+    #result = a.dw()
     print(result)
 
     tmp = []
