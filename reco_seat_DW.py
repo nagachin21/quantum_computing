@@ -1,4 +1,5 @@
 import numpy as np
+from pprint import pprint
 #import pprint
 from dwave.system.samplers import DWaveSampler
 from dwave.system.composites import EmbeddingComposite
@@ -61,6 +62,7 @@ for i, x in enumerate(H):
         if i <= j:
             Q_list.update( {('q'+str(i), 'q'+str(j)): y} )
 Q = dict(Q_list)
+pprint(Q)
 print("Q size", len(Q))
 # Minor embed and sample 1000 times on default D-wave system
 response = EmbeddingComposite(DWaveSampler()).sample_qubo(Q, num_reads=5)

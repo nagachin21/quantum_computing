@@ -1,5 +1,7 @@
 import wildqat as wq
 import numpy as np
+from pprint import pprint
+import csv
 
 def make_J2():
     J2 = np.zeros((16,16))
@@ -72,10 +74,12 @@ J2 = np.array([
 B = 0.2
 
 a.qubo = J1 + B * J2
+pprint(a.qubo)
 result_sa = a.sa()
 #result = a.dw()
 #print(result)
 print(result_sa)
-#test_J2 = make_J2()
-#print(test_J2)
-#print(J2 == test_J2)
+
+with open('./qubo.csv', 'w') as f:
+    writer = csv.writer(f)
+    writer.writerows(a.qubo)

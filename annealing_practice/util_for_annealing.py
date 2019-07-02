@@ -83,6 +83,3 @@ def make_J2():
                 J2[i][j] = relation[r1][r2] * distance[d1][d2]
 
     return J2
-
-#np.set_printoptions(edgeitems=8)
-#print(make_J2())

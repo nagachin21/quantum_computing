@@ -76,7 +76,8 @@ def make_J1():
     #print(J1)
     #print(np.get_printoptions())
     return J1
-
+    
+'''
 def return_J2_element(i, j):
     if i >= j:
         result = 0
@@ -91,5 +92,5 @@ def make_J2(num):
     for i in range(num**2):
         for j in range(num**2):
             J2[i, j] = return_J2_element(i, j)
-
     return J2
+'''
