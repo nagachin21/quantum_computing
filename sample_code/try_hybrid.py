@@ -31,7 +31,7 @@ bqm = BinaryQuadraticModel.from_qubo(Q, 24)
 iteration = hybrid.RacingBranches(
     hybrid.Identity(),
     hybrid.InterruptableTabuSampler(),
-    hybrid.EnergyImpactDecomposer(size=12)
+    hybrid.EnergyImpactDecomposer(size=2)
     | hybrid.QPUSubproblemAutoEmbeddingSampler()
     | hybrid.SplatComposer()
 ) | hybrid.ArgMin()
