@@ -9,7 +9,7 @@ import wildqat as wq
 b = 0.2
 
 J1 = make_J1(4)
-J2 = make_J2(4)
+J2 = make_J2(4, random_flag=False)
 
 H = J1 + b*J2
 '''
@@ -38,7 +38,7 @@ sampler = EmbeddingComposite(DWaveSampler())
 print("--- end embedding ---")
 
 print("--- start Dwave solver ---")
-response = sampler.sample_qubo(Q, num_reads=1000)
+response = sampler.sample_qubo(Q, num_reads=10)
 #response = DWaveSampler().sample_qubo(Q, num_reads=1)
 print("--- end Dwave solver ---")
 
@@ -48,3 +48,4 @@ for sample, energy, num in response.data(['sample', 'energy', 'num_occurrences']
     if num > max_occurence:
         min_sol, min_energy, max_occurence = sample, energy, num
 print("minimum result:", min_sol, min_energy, max_occurence)
+print("Lowest", response.lowest())

@@ -3,6 +3,8 @@ sys.path.append("./annealing_practice")
 import numpy as np
 import sympy as sp
 import random
+import matplotlib.pyplot as plt
+import matplotlib as mpl
 from numerology import *
 
 '''
@@ -134,11 +136,15 @@ def make_dis_matrix(idx):
 
     return mat
 
-def make_rel_matrix(idx):
+def make_rel_matrix(idx, random_flag=True):
     person = []
-
-    for i in range(idx):
-        person.append([str(1900 + random.randint(0,99)), str(random.randint(1,12)), str(random.randint(1,30))] )
+    if random_flag:
+        for i in range(idx):
+            person.append([str(1900 + random.randint(0,99)), str(random.randint(1,12)), str(random.randint(1,30))] )
+    else:
+        for i in range(idx):
+            person.append([str(1980 + i*5), str(i), str(1+i)])
+            #print(person)
 
     mat = np.zeros((idx,idx))
     for i in range(idx):
@@ -173,9 +179,9 @@ def dis_num(x, idx):
     return x % idx
 
 
-def make_J2(idx):
+def make_J2(idx, random_flag=True):
     J2 = np.zeros((idx**2,idx**2))
-    relation = make_rel_matrix(idx)
+    relation = make_rel_matrix(idx, random_flag)
     distance = make_dis_matrix(idx)
     #print(relation)
     #print(distance)
@@ -188,3 +194,14 @@ def make_J2(idx):
                 J2[i][j] = relation[r1][r2] * distance[d1][d2]
 
     return J2
+
+def make_hist(data):
+    list = []
+
+    for energy, in data:
+        #print(energy)
+        list.append(energy)
+
+    plt.title('annealing sampling')
+    plt.hist(list)
+    plt.show()
