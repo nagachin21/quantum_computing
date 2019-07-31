@@ -1,7 +1,8 @@
 import sys, os
 sys.path.append('../annealing_practice')
-import dimod
+import datetime as dt
 from utility import *
+import dimod
 import time
 
 # 問題を設定（着席推奨4席）
@@ -17,19 +18,19 @@ for i, x in enumerate(H):
             Q.update( {('q'+str(i), 'q'+str(j)): y} )
 
 start_time = time.time()
-solver = dimod.ExactSolver()
+solver = dimod.SimulatedAnnealingSampler()
 response = solver.sample_qubo(Q)
 end_time = time.time()
 
-#for datum in response.data(['sample', 'energy']):
-    #print(datum.sample, datum.energy)
-
-#print(response)
+'''
+for datum in response.data(['sample', 'energy']):
+    print(datum.sample, datum.energy)
+'''
 print(response.lowest())
-print("elapsed time:{0}".format(end_time - start_time) + "[sec]")
+print("elapsed_time:{0}".format(end_time - start_time) + "[sec]")
+
+make_hist(response.data(fields=['energy']))
 
 
-'''
-for sample, energy, num in response.data(fields=['sample', 'energy', 'num_occurrences']):
-    print(sample, energy, num)
-'''
+#service time
+#time_format = "%Y-%m-%d %H:%M:%S.%f"

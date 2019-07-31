@@ -43,3 +43,4 @@ final_state = workflow.run(init_state).result()
 
 # Print results
 print("Solution: sample={.samples.first}".format(final_state))
+print(final_state.timing)

@@ -1,10 +1,10 @@
-import sys, os
+import sys,os
 sys.path.append('../annealing_practice')
-import dimod
 from utility import *
+from dwave.system.samplers import DWaveSampler
+from dwave.system.composites import EmbeddingComposite
 import time
 
-# 問題を設定（着席推奨4席）
 b = 0.2
 J1 = make_J1(4)
 J2 = make_J2(4, random_flag=False)
@@ -17,19 +17,10 @@ for i, x in enumerate(H):
             Q.update( {('q'+str(i), 'q'+str(j)): y} )
 
 start_time = time.time()
-solver = dimod.ExactSolver()
-response = solver.sample_qubo(Q)
+solver = EmbeddingComposite(DWaveSampler())
+response = solver.sample_qubo(Q, num_reads=10000)
 end_time = time.time()
 
-#for datum in response.data(['sample', 'energy']):
-    #print(datum.sample, datum.energy)
-
-#print(response)
 print(response.lowest())
 print("elapsed time:{0}".format(end_time - start_time) + "[sec]")
-
-
-'''
-for sample, energy, num in response.data(fields=['sample', 'energy', 'num_occurrences']):
-    print(sample, energy, num)
-'''
+make_hist(response.data(fields=['energy']))
