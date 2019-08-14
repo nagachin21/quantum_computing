@@ -8,7 +8,8 @@ import time
 b = 0.2
 J1 = make_J1(4)
 J2 = make_J2(4, random_flag=False)
-H = J1 + b*J2
+#H = J1 + b*J2
+H = J1
 Q = {}
 
 for i, x in enumerate(H):

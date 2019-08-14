@@ -1,5 +1,3 @@
-import sys
-sys.path.append("./annealing_practice")
 import numpy as np
 import sympy as sp
 import random
@@ -77,10 +75,10 @@ def make_J1(idx):
     J1 = np.zeros((idx**2, idx**2))
 
     for i, x in enumerate(ex_func_list):
+        
         if x != '+' and x != '-' and x != str(idx*2):
             a, b, item = calc(x)
             if ex_func_list[int(i) - 1] == '-':
-                #print('-')
                 J1[int(a), int(b)] += -1 * int(item)
             else:
                 J1[int(a), int(b)] += int(item)
@@ -195,13 +193,24 @@ def make_J2(idx, random_flag=True):
 
     return J2
 
-def make_hist(data):
+def make_hist(response):
     list = []
-
-    for energy, in data:
-        #print(energy)
-        list.append(energy)
+    print(response.info)
+    for sample, energy, occurences in response.data(['sample', 'energy', 'num_occurrences']):
+        #print(sample, energy, occurences)
+        for i in range(occurences):
+            list.append(energy)
 
     plt.title('annealing sampling')
     plt.hist(list)
     plt.show()
+
+
+def return_result(sampleSet):
+    for sample, energy in sampleSet.data(fields=['sample', 'energy']):
+        #print(sample, type(sample))
+        qubits = []
+        for qubit,i in sample.items():
+            if i == 1:
+                qubits.append(qubit)
+        print("sample:{0}, energy:{1}".format(qubits,energy))
