@@ -75,7 +75,7 @@ def make_J1(idx):
     J1 = np.zeros((idx**2, idx**2))
 
     for i, x in enumerate(ex_func_list):
-        
+
         if x != '+' and x != '-' and x != str(idx*2):
             a, b, item = calc(x)
             if ex_func_list[int(i) - 1] == '-':
@@ -131,6 +131,8 @@ def make_dis_matrix(idx):
         [0,0,0,3],
         [0,0,0,0]
         ])
+    else:
+        mat = np.zeros((idx, idx))
 
     return mat
 
