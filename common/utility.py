@@ -192,6 +192,7 @@ def make_J2(idx, random_flag=True):
                 r1, r2 = min(rel_num(i, idx), rel_num(j, idx)), max(rel_num(i, idx), rel_num(j, idx))
                 d1, d2 = min(dis_num(i, idx), dis_num(j, idx)), max(dis_num(i, idx), dis_num(j, idx))
                 J2[i][j] = relation[r1][r2] * distance[d1][d2]
+                print("J2 Matrix作成中: {}, {}".format(i,j))
 
     return J2
 

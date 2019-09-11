@@ -11,6 +11,7 @@ def from_J2(i, x, idx, J2):
     for j in range(idx**2):
         if i < j:
             cost += J2[i][j] * x[i] * x[j]
+            print("J2 QUBO作成中: {}, {}".format(i, j))
     #pprint(cost)
     return cost
 

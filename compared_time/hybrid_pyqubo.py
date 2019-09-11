@@ -13,6 +13,7 @@ import hybrid
 import time
 
 if not os.path.exists("../common/qubo/qubo_100.pkl"):
+    print("pklファイルが存在しないため、作成します")
     make_qubo_to_pkl(100, random_flag=False)
     print("pklファイルが存在しないため、作成しました")
 
